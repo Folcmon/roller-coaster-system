@@ -5,6 +5,9 @@ namespace Config;
 use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Log\Handlers\FileHandler;
 
+var_dump(ENVIRONMENT, getenv('LOGS_THRESHOLD'));
+die();
+
 class Logger extends BaseConfig
 {
     /**
@@ -38,7 +41,7 @@ class Logger extends BaseConfig
      *
      * @var int|list<int>
      */
-    public $threshold = (ENVIRONMENT === 'production') ? 4 : 9;
+    public $threshold = (ENVIRONMENT === 'production') ? [3, 4, 5] : 9;
 
     /**
      * --------------------------------------------------------------------------
