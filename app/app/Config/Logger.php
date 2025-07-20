@@ -5,9 +5,6 @@ namespace Config;
 use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Log\Handlers\FileHandler;
 
-var_dump(ENVIRONMENT, getenv('LOGS_THRESHOLD'));
-die();
-
 class Logger extends BaseConfig
 {
     /**
