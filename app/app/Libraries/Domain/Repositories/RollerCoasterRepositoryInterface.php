@@ -12,4 +12,6 @@ interface RollerCoasterRepositoryInterface
      * @return RollerCoaster[]
      */
     public function findAll(): array;
+    public function getPersonnel(): int;
+    public function setPersonnel(int $count): void;
 } 

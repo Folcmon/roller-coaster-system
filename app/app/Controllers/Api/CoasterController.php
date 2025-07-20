@@ -49,4 +49,43 @@ class CoasterController extends BaseController
         $this->service->updateCoaster($coaster);
         return $this->response->setStatusCode(ResponseInterface::HTTP_OK)->setJSON(['status' => 'zaktualizowano']);
     }
+
+    public function setPersonnel()
+    {
+        $data = $this->request->getJSON(true);
+        if (!isset($data['personnel']) || !is_numeric($data['personnel']) || (int)$data['personnel'] < 0) {
+            return $this->response->setStatusCode(ResponseInterface::HTTP_BAD_REQUEST)->setJSON(['error' => 'Brak wymaganej liczby personelu lub liczba nieprawidłowa']);
+        }
+        $this->service->setPersonnel((int)$data['personnel']);
+        return $this->response->setJSON(['status' => 'zaktualizowano']);
+    }
+
+    public function status()
+    {
+        return $this->response->setJSON($this->service->getSystemStatus());
+    }
+
+    public function coasterStatus($coasterId)
+    {
+        return $this->response->setJSON($this->service->getCoasterStatus($coasterId));
+    }
+
+    public function getPersonnel()
+    {
+        return $this->response->setJSON(['personnel' => $this->service->getPersonnel()]);
+    }
+
+    public function index()
+    {
+        return $this->response->setJSON($this->service->getAllCoasters());
+    }
+
+    public function show($coasterId)
+    {
+        $coaster = $this->service->getCoaster($coasterId);
+        if (!$coaster) {
+            return $this->response->setStatusCode(ResponseInterface::HTTP_NOT_FOUND)->setJSON(['error' => 'Nie znaleziono kolejki']);
+        }
+        return $this->response->setJSON($coaster);
+    }
 } 
