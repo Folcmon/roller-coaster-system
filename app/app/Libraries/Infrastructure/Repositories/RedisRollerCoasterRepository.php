@@ -44,4 +44,15 @@ class RedisRollerCoasterRepository implements RollerCoasterRepositoryInterface
         }
         return $coasters;
     }
+
+    public function getPersonnel(): int
+    {
+        $value = $this->redis->get('personnel:count');
+        return $value !== false ? (int)$value : 0;
+    }
+
+    public function setPersonnel(int $count): void
+    {
+        $this->redis->set('personnel:count', $count);
+    }
 } 

@@ -11,4 +11,11 @@ $routes->group('api', function ($routes) {
     $routes->put('coasters/(:segment)', 'Api\CoasterController::update/$1');
     $routes->post('coasters/(:segment)/wagons', 'Api\WagonController::create/$1');
     $routes->delete('coasters/(:segment)/wagons/(:segment)', 'Api\WagonController::delete/$1/$2');
+    $routes->get('coasters/personnel', 'Api\CoasterController::personnel');
+    $routes->put('coasters/personnel', 'Api\CoasterController::personnel');
+    $routes->get('coasters/status', 'Api\CoasterController::status');
+    $routes->get('coasters/(:segment)/status', 'Api\CoasterController::coasterStatus/$1');
 });
+$routes->get('rollercoasters', 'RollercoasterController::index');
+$routes->get('rollercoasters/(:segment)/wagons', 'RollercoasterController::wagons/$1');
+$routes->get('rollercoasters/personnel', 'RollercoasterController::personnel');

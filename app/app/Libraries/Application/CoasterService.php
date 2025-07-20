@@ -52,6 +52,87 @@ class CoasterService
         return $this->wagonRepo->findAllForCoaster($coasterId);
     }
 
+    public function getPersonnel(): int
+    {
+        return $this->coasterRepo->getPersonnel();
+    }
+
+    public function setPersonnel(int $count): void
+    {
+        $this->coasterRepo->setPersonnel($count);
+    }
+
+    public function getSystemStatus(): array
+    {
+        $coasters = $this->getAllCoasters();
+        $status = [];
+        foreach ($coasters as $coaster) {
+            $stat = $this->calculateStaffAndWagonStatus($coaster);
+            if ($stat['staffDiff'] < 0) {
+                $status[] = [
+                    'coaster' => $coaster->id,
+                    'type' => 'brak',
+                    'message' => 'Brakuje ' . abs($stat['staffDiff']) . ' pracowników'
+                ];
+            } elseif ($stat['staffDiff'] > 0) {
+                $status[] = [
+                    'coaster' => $coaster->id,
+                    'type' => 'nadmiar',
+                    'message' => 'Nadmiar ' . $stat['staffDiff'] . ' pracowników'
+                ];
+            }
+            if ($stat['wagonDiff'] < 0) {
+                $status[] = [
+                    'coaster' => $coaster->id,
+                    'type' => 'brak',
+                    'message' => 'Brakuje ' . abs($stat['wagonDiff']) . ' wagonów'
+                ];
+            } elseif ($stat['wagonDiff'] > 0) {
+                $status[] = [
+                    'coaster' => $coaster->id,
+                    'type' => 'nadmiar',
+                    'message' => 'Nadmiar ' . $stat['wagonDiff'] . ' wagonów'
+                ];
+            }
+        }
+        return $status;
+    }
+
+    public function getCoasterStatus(string $coasterId): array
+    {
+        $coaster = $this->getCoaster($coasterId);
+        if (!$coaster) return [];
+        $stat = $this->calculateStaffAndWagonStatus($coaster);
+        $status = [];
+        if ($stat['staffDiff'] < 0) {
+            $status[] = [
+                'coaster' => $coaster->id,
+                'type' => 'brak',
+                'message' => 'Brakuje ' . abs($stat['staffDiff']) . ' pracowników'
+            ];
+        } elseif ($stat['staffDiff'] > 0) {
+            $status[] = [
+                'coaster' => $coaster->id,
+                'type' => 'nadmiar',
+                'message' => 'Nadmiar ' . $stat['staffDiff'] . ' pracowników'
+            ];
+        }
+        if ($stat['wagonDiff'] < 0) {
+            $status[] = [
+                'coaster' => $coaster->id,
+                'type' => 'brak',
+                'message' => 'Brakuje ' . abs($stat['wagonDiff']) . ' wagonów'
+            ];
+        } elseif ($stat['wagonDiff'] > 0) {
+            $status[] = [
+                'coaster' => $coaster->id,
+                'type' => 'nadmiar',
+                'message' => 'Nadmiar ' . $stat['wagonDiff'] . ' wagonów'
+            ];
+        }
+        return $status;
+    }
+
     // Logika wyliczania braków personelu i wagonów
     public function calculateStaffAndWagonStatus(RollerCoaster $coaster): array
     {
