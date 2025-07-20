@@ -1,0 +1,45 @@
+services:
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./app:/var/www/html
+      - ./docker/nginx/${NGINX_CONF_FILE}:/etc/nginx/conf.d/default.conf
+      - ./docker/nginx/.htpasswd:/etc/nginx/.htpasswd
+    ports:
+      - "8080:80"
+    depends_on:
+      - php
+    environment:
+      - CI_ENVIRONMENT=${CI_ENVIRONMENT}
+      - NGINX_CONF_FILE=${NGINX_CONF_FILE}
+    networks:
+      - internal
+
+  php:
+    build:
+      context: .
+      dockerfile: ./docker/php/Dockerfile
+    volumes:
+      - ./app:/var/www/html
+    environment:
+      - CI_ENVIRONMENT=${CI_ENVIRONMENT}
+      - REDIS_DATABASE=${REDIS_DATABASE}
+      - APP_BASE_URL=${APP_BASE_URL}
+      - LOGS_THRESHOLD=${LOGS_THRESHOLD}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+    ports:
+      - "9000:9000"
+    networks:
+      - internal
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - internal
+
+networks:
+  internal:
+    driver: bridge
