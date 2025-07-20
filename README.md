@@ -19,9 +19,9 @@
 
 ## Dokumentacja
 
-- w Katalogu demoImages znajdują sie przykładowe zrzuty ekranu z działania aplikacji
+- w Katalogu "demoImages" znajdują się przykładowe zrzuty ekranu z działania aplikacji
 - Basic auth development u: dev p: password
-- monitorowanie kolejki w katalogu głównym aplikacji uruchamiamy komendę: `php spark monitor:coasters'
+- monitorowanie kolejki w katalogu głównym aplikacji uruchamiamy komendę: `php spark monitor: coasters'
 
 ## API: Zarządzanie personelem i statusami
 
@@ -124,4 +124,4 @@
 - walidacja danych wejściowych godziny
 
 - POST /api/coasters/:coasterId/wagons walidacja danych wejściowych wagonów (czy istnieje kolejka)
-- aktualizacja kolejki górskiej przy zmianie dodać walidacje na to ze nie można zmodyfikować długości trasy
+- aktualizacja kolejki górskiej przy zmianie dodać walidacje na to, że nie można zmodyfikować długości trasy
