@@ -41,4 +41,17 @@ class Validation extends BaseConfig
     // --------------------------------------------------------------------
     // Rules
     // --------------------------------------------------------------------
+
+    public $coaster = [
+        'liczba_personelu' => 'required|is_natural_no_zero',
+        'liczba_klientow'  => 'required|is_natural_no_zero',
+        'dl_trasy'         => 'required|is_natural_no_zero',
+        'godziny_od'       => 'required|regex_match[/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/]',
+        'godziny_do'       => 'required|regex_match[/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/]',
+    ];
+
+    public $wagon = [
+        'ilosc_miejsc'     => 'required|is_natural_no_zero',
+        'predkosc_wagonu'  => 'required|decimal',
+    ];
 }

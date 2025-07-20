@@ -2,6 +2,9 @@
 
 namespace Config;
 
+use App\Libraries\Application\CoasterService;
+use App\Libraries\Infrastructure\Repositories\RedisRollerCoasterRepository;
+use App\Libraries\Infrastructure\Repositories\RedisWagonRepository;
 use CodeIgniter\Config\BaseService;
 
 /**
@@ -29,4 +32,37 @@ class Services extends BaseService
      *     return new \CodeIgniter\Example();
      * }
      */
+
+    public static function rollerCoasterRepository($getShared = true)
+    {
+        if ($getShared) {
+            return static::getSharedInstance('rollerCoasterRepository');
+        }
+        $redis = new \Redis();
+        $redis->connect(env('redis.host', 'redis'), env('redis.port', 6379));
+        $prefix = env('app.env', 'dev') === 'production' ? 'prod_coaster:' : 'dev_coaster:';
+        return new RedisRollerCoasterRepository($redis, $prefix);
+    }
+
+    public static function wagonRepository($getShared = true): RedisWagonRepository
+    {
+        if ($getShared) {
+            return static::getSharedInstance('wagonRepository');
+        }
+        $redis = new \Redis();
+        $redis->connect(env('redis.host', 'redis'), env('redis.port', 6379));
+        $prefix = env('app.env', 'dev') === 'production' ? 'prod_coaster:' : 'dev_coaster:';
+        return new RedisWagonRepository($redis, $prefix);
+    }
+
+    public static function coasterService($getShared = true): CoasterService
+    {
+        if ($getShared) {
+            return static::getSharedInstance('coasterService');
+        }
+        return new CoasterService(
+            static::rollerCoasterRepository(),
+            static::wagonRepository()
+        );
+    }
 }
