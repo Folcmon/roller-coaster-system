@@ -48,3 +48,5 @@ FROM base as app
 
 RUN cp $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
 COPY ./app /var/www/html
+EXPOSE 9000
+CMD ["php-fpm"]
