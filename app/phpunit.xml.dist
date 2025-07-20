@@ -23,8 +23,8 @@
         </report>
     </coverage>
     <testsuites>
-        <testsuite name="App">
-            <directory>./tests</directory>
+        <testsuite name="Application">
+            <directory suffix="Test.php">./tests/unit/</directory>
         </testsuite>
     </testsuites>
     <logging>
