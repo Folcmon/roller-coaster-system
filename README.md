@@ -21,7 +21,7 @@
 
 - w Katalogu "demoImages" znajdują się przykładowe zrzuty ekranu z działania aplikacji
 - Basic auth development u: dev p: password
-- monitorowanie kolejki w katalogu głównym aplikacji uruchamiamy komendę: `php spark monitor: coasters'
+- monitorowanie kolejki w katalogu głównym aplikacji uruchamiamy komendę: `php spark monitor:coasters'
 
 ## API: Zarządzanie personelem i statusami
 
@@ -118,6 +118,7 @@
   "error": "Brak wymaganej liczby personelu"
 }
 ```
+
 
 ### TODO
 
