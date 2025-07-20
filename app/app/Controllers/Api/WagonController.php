@@ -35,4 +35,10 @@ class WagonController extends BaseController
         $this->service->removeWagon($coasterId, $wagonId);
         return $this->response->setStatusCode(ResponseInterface::HTTP_OK)->setJSON(['status' => 'usunięto']);
     }
+
+    public function index($coasterId)
+    {
+        $wagons = $this->service->getWagonsForCoaster($coasterId);
+        return $this->response->setJSON($wagons);
+    }
 } 

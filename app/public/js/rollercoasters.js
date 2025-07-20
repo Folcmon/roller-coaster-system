@@ -32,10 +32,10 @@ function renderCoastersTable(coasters) {
         tbody.append(`
             <tr>
                 <td>${idx + 1}</td>
-                <td>${coaster.liczba_personelu}</td>
-                <td>${coaster.liczba_klientow}</td>
-                <td>${coaster.dl_trasy}</td>
-                <td>${coaster.godziny_od} - ${coaster.godziny_do}</td>
+                <td>${coaster.liczbaPersonelu}</td>
+                <td>${coaster.liczbaKlientow}</td>
+                <td>${coaster.dlugoscTrasy}</td>
+                <td>${coaster.godzinyOd} - ${coaster.godzinyDo}</td>
                 <td>
                     <button class="btn btn-primary btn-sm me-1" onclick="editCoaster('${coaster.id}')">Edytuj</button>
                     <button class="btn btn-secondary btn-sm me-1" onclick="viewWagons('${coaster.id}')">Wagony</button>
@@ -49,11 +49,11 @@ function renderCoastersTable(coasters) {
 function saveCoaster() {
     const id = $('#coasterId').val();
     const data = {
-        liczba_personelu: $('#liczba_personelu').val(),
-        liczba_klientow: $('#liczba_klientow').val(),
-        dl_trasy: $('#dl_trasy').val(),
-        godziny_od: $('#godziny_od').val(),
-        godziny_do: $('#godziny_do').val()
+        liczbaPersonelu: $('#liczba_personelu').val(),
+        liczbaKlientow: $('#liczba_klientow').val(),
+        dlugoscTrasy: $('#dl_trasy').val(),
+        godzinyOd: $('#godziny_od').val(),
+        godzinyDo: $('#godziny_do').val()
     };
     const method = id ? 'PUT' : 'POST';
     const url = id ? `/api/coasters/${id}` : '/api/coasters';
@@ -76,11 +76,11 @@ function saveCoaster() {
 function editCoaster(id) {
     $.get(`/api/coasters/${id}`, function (coaster) {
         $('#coasterId').val(coaster.id);
-        $('#liczba_personelu').val(coaster.liczba_personelu);
-        $('#liczba_klientow').val(coaster.liczba_klientow);
-        $('#dl_trasy').val(coaster.dl_trasy);
-        $('#godziny_od').val(coaster.godziny_od);
-        $('#godziny_do').val(coaster.godziny_do);
+        $('#liczba_personelu').val(coaster.liczbaPersonelu);
+        $('#liczba_klientow').val(coaster.liczbaKlientow);
+        $('#dl_trasy').val(coaster.dlugoscTrasy);
+        $('#godziny_od').val(coaster.godzinyOd);
+        $('#godziny_do').val(coaster.godzinyDo);
         $('#coasterModalLabel').text('Edytuj kolejkę górską');
         $('#coasterModal').modal('show');
     });
