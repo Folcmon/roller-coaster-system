@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c27a55333741455a0d3c799ccf44655e",
+    "content-hash": "31ffb5e9eee05c4c645e7efade48b56f",
     "packages": [
         {
             "name": "clue/redis-protocol",
