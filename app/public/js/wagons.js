@@ -35,10 +35,10 @@ function renderCoasterDetails(coaster) {
             <div class="card-body">
                 <h5 class="card-title">ID: ${coaster.id}</h5>
                 <p class="card-text">
-                    <strong>Liczba personelu:</strong> ${coaster.liczba_personelu}<br>
-                    <strong>Liczba klientów dziennie:</strong> ${coaster.liczba_klientow}<br>
-                    <strong>Długość trasy:</strong> ${coaster.dl_trasy} m<br>
-                    <strong>Godziny działania:</strong> ${coaster.godziny_od} - ${coaster.godziny_do}
+                    <strong>Liczba personelu:</strong> ${coaster.liczbaPersonelu}<br>
+                    <strong>Liczba klientów dziennie:</strong> ${coaster.liczbaKlientow}<br>
+                    <strong>Długość trasy:</strong> ${coaster.dlugoscTrasy} m<br>
+                    <strong>Godziny działania:</strong> ${coaster.godzinyOd} - ${coaster.godzinyDo}
                 </p>
             </div>
         </div>

@@ -70,6 +70,39 @@ final class CoasterApiTest extends CIUnitTestCase
         $this->assertEquals(42, $json['personnel']);
     }
 
+    public function testGetAllCoasters()
+    {
+        // Tworzymy dwie kolejki
+        $coasterId1 = $this->createCoaster($this->createCoasterTestData());
+        $coasterId2 = $this->createCoaster($this->createCoasterTestData());
+
+        // Pobieramy wszystkie kolejki
+        $response = $this->get('/api/coasters');
+        $this->assertSame(200, $response->response()->getStatusCode());
+        $json = json_decode($response->getJSON(), true);
+        $this->assertIsArray($json);
+        $ids = array_map(fn($c) => $c['id'] ?? null, $json);
+        $this->assertContains($coasterId1, $ids);
+        $this->assertContains($coasterId2, $ids);
+    }
+
+    public function testPersonnelOnly()
+    {
+        // Ustawiamy liczbę personelu
+        $response = $this->withBody(json_encode(['personnel' => 7]))
+            ->put('/api/coasters/personnel', [], ['Content-Type' => 'application/json']);
+        $this->assertSame(200, $response->response()->getStatusCode());
+        $this->assertJson($response->getJSON());
+        $this->assertArrayHasKey('status', json_decode($response->getJSON(), true));
+
+        // Pobieramy liczbę personelu
+        $response = $this->get('/api/coasters/personnel');
+        $this->assertSame(200, $response->response()->getStatusCode());
+        $json = json_decode($response->getJSON(), true);
+        $this->assertArrayHasKey('personnel', $json);
+        $this->assertEquals(7, $json['personnel']);
+    }
+
     public function testStatusEndpoints()
     {
         // Tworzymy kolejkę z brakami
